@@ -5,20 +5,17 @@ import discord
 import re
 import random
 import json
-import neko_keys
+import fern_keys
 from dotenv import load_dotenv
 
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
 
-commandofile = "commando.txt"
-commandolines = []
-
 treguardlines = ["truth accepted.", "falsehood."]
 
-TOKEN = neko_keys.TOKEN
-stock_token = neko_keys.stock_token
-weather_token = neko_keys.weather_token
+TOKEN = fern_keys.TOKEN
+stock_token = fern_keys.stock_token
+weather_token = fern_keys.weather_token
 
 load_dotenv
 
@@ -52,10 +49,6 @@ sharks = open(sharkjokesfile, "r")
 for joke in sharks:
   sharkjokeslist.append(joke)
 
-commandos = open(commandofile, "r")
-for line in commandos:
-    commandolines.append(line)
-
 client=discord.Client()
 
 @client.event
@@ -67,7 +60,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    match = re.search(r'neko,? weather (.*)', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? weather (.*)', message.content, re.IGNORECASE)
     if match:
         zipcode = match.group(1)
         match = re.search(r'\d\d\d\d\d', message.content)
@@ -108,36 +101,18 @@ async def on_message(message):
     if match:
         await message.channel.send("It's gay? You're gay!")
 
-    match = re.search(r'neko,? tell me a (.*) joke', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? tell me a (.*) joke', message.content, re.IGNORECASE)
     if match:
         jokeword = match.group(1)
         response = random.choice(sharkjokeslist)
         await message.channel.send(response.replace("shark", jokeword))
 
-    match = re.search(r'neko,? what would treguard say', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? what would treguard say', message.content, re.IGNORECASE)
     if match: 
         response = random.choice(treguardlines)
         await message.channel.send("Treguard would say: " + response)
 
-    match = re.search(r'neko,? what would matrix say', message.content, re.IGNORECASE)
-    if match:
-        response = random.choice(commandolines)
-        response = "Matrix would say: " + response
-        await message.channel.send(response)
-
-    match = re.search(r'neko,? when will commando be on', message.content, re.IGNORECASE)
-    if match:
-        await message.channel.send("Commando is always on ... in our hearts.")
-
-    match = re.search(r'neko,? is commando on', message.content, re.IGNORECASE)
-    if match:
-        await message.channel.send("Yes, I'm watching it right now.")
-
-    match = re.search(r'(have|get) a key', message.content, re.IGNORECASE)
-    if match:
-        await message.channel.send("Why don't you get a key, then?")
-
-    match = re.search(r'neko,? stock (.*)', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? stock (.*)', message.content, re.IGNORECASE)
     if match:
         symbol = match.group(1)
         requestResponse = requests.get("https://api.tiingo.com/iex/?tickers=" + symbol, headers=headers)
@@ -147,14 +122,14 @@ async def on_message(message):
         diff = round(((newprice - oldprice) / oldprice) * 100, 2)
         await message.channel.send("The price of " + stockresponse[0]["ticker"] + " is " + str(stockresponse[0]["last"]) + " (" + str(diff) + "%).")
 
-    match = re.search(r'neko,? tell me number trivia', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? tell me number trivia', message.content, re.IGNORECASE)
     if match:
         r = requests.get("http://numbersapi.com/random/trivia")
         response = r.content.decode("utf-8")
         await message.channel.send(response)
 
 
-    match = re.search(r'neko,? tell me about the number (.*)', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? tell me about the number (.*)', message.content, re.IGNORECASE)
     try:
         if match:
             number = match.group(1)
