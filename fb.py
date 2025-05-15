@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
 
-treguardlines = ["truth accepted.", "falsehood."]
+pokeURL = "https://pokeapi.co/api/v2/pokemon/"
 
 TOKEN = fern_keys.TOKEN
 stock_token = fern_keys.stock_token
@@ -92,6 +92,15 @@ async def on_message(message):
             "but it feels like " + str(feels_like_c) + "C (" + str(feels_like_f) + "F/" + str(feels_like) + "K). Wind is out of the " + wind_dir + " at " + str(int(wind_speed_mph)) + "MPH " \
             "(" + str(int(wind_speed_kmh)) + "KPH). Humidity is " + str(int(humidity)) + "%. Visibility is " + str(int(visibility)) + " meters."
         await message.channel.send(return_response)
+
+    match = re.search(r'fern,? show me the pokemon (.*)', message.content, re.IGNORECASE)
+    if match:
+        pokemon_name = match.group(1)
+        build_string = "https://pokeapi.co/api/v2/pokemon/" + pokemon_name + "/"
+        pokemon_request = requests.get(build_string)
+        pokemon_response = json.loads(pokemon_request.content)
+        pokemon_pic = pokemon_response["sprites"]["front_default"]
+        await message.channel.send(pokemon_pic)
 
     if message.content == "gotobed":
         await message.channel.send("Going to bed.")
