@@ -11,8 +11,6 @@ from dotenv import load_dotenv
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
 
-pokeURL = "https://pokeapi.co/api/v2/pokemon/"
-
 TOKEN = fern_keys.TOKEN
 stock_token = fern_keys.stock_token
 weather_token = fern_keys.weather_token
@@ -102,20 +100,17 @@ async def on_message(message):
         pokemon_pic = pokemon_response["sprites"]["front_default"]
         await message.channel.send(pokemon_pic)
 
-    if message.content == "gotobed":
-        await message.channel.send("Going to bed.")
-        quit()
+# commenting this bit out for the moment
+#
+#    if message.content == "gotobed":
+#        await message.channel.send("Going to bed.")
+#        quit()
 
     match = re.search(r'fern,? tell me a (.*) joke', message.content, re.IGNORECASE)
     if match:
         jokeword = match.group(1)
         response = random.choice(sharkjokeslist)
         await message.channel.send(response.replace("shark", jokeword))
-
-    match = re.search(r'fern,? what would treguard say', message.content, re.IGNORECASE)
-    if match: 
-        response = random.choice(treguardlines)
-        await message.channel.send("Treguard would say: " + response)
 
     match = re.search(r'fern,? stock (.*)', message.content, re.IGNORECASE)
     if match:
