@@ -88,8 +88,8 @@ async def on_message(message):
         feels_like_c = round((feels_like - 273.15), 2)        
         f_temp = int((current_temp - 273.15) * 9/5 + 32)
         c_temp = round((current_temp - 273.15), 2)
-        return_response = weather_icon_dict[icon_code] + " " + place + " has " + desc + " with a current temperature of " + str(f_temp) + "F (" + str(c_temp) + "C/" + str(current_temp) + "K), " \
-            "but it feels like " + str(feels_like_f) + "F (" + str(feels_like_c) + "C/" + str(feels_like) + "K). Wind is out of the " + wind_dir + " at " + str(int(wind_speed_mph)) + "MPH " \
+        return_response = weather_icon_dict[icon_code] + " " + place + " has " + desc + " with a current temperature of " + str(c_temp) + "C (" + str(f_temp) + "F/" + str(current_temp) + "K), " \
+            "but it feels like " + str(feels_like_c) + "C (" + str(feels_like_f) + "F/" + str(feels_like) + "K). Wind is out of the " + wind_dir + " at " + str(int(wind_speed_mph)) + "MPH " \
             "(" + str(int(wind_speed_kmh)) + "KPH). Humidity is " + str(int(humidity)) + "%. Visibility is " + str(int(visibility)) + " meters."
         await message.channel.send(return_response)
 
