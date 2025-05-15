@@ -7,6 +7,7 @@ import random
 import json
 import fern_keys
 from dotenv import load_dotenv
+from datetime import datetime
 
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
@@ -105,6 +106,14 @@ async def on_message(message):
 #    if message.content == "gotobed":
 #        await message.channel.send("Going to bed.")
 #        quit()
+
+    match = re.search(r'fern,? how many days until halloween', message.content, re.IGNORECASE)
+    if match:
+        target_date = datetime(2025, 10, 31)  
+        today = datetime.today()
+        delta = target_date - today
+        days_remaining = delta.days
+        await message.channel.send("There are " + str(days_remaining) + " days until Halloween. Spooky!")
 
     match = re.search(r'fern,? tell me a (.*) joke', message.content, re.IGNORECASE)
     if match:
