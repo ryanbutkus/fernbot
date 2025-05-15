@@ -97,10 +97,6 @@ async def on_message(message):
         await message.channel.send("Going to bed.")
         quit()
 
-    match = re.search(r'(^| )gay($| )', message.content, re.IGNORECASE)
-    if match:
-        await message.channel.send("It's gay? You're gay!")
-
     match = re.search(r'fern,? tell me a (.*) joke', message.content, re.IGNORECASE)
     if match:
         jokeword = match.group(1)
