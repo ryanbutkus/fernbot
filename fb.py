@@ -92,13 +92,17 @@ async def on_message(message):
             "(" + str(int(wind_speed_mph)) + "MPH). Humidity is " + str(int(humidity)) + "%. Visibility is " + str(int(visibility)) + " meters."
         await message.channel.send(return_response)
 
-    match = re.search(r'fern,? show me the pokemon (.*)', message.content, re.IGNORECASE)
+    #match = re.search(r'fern,? show me the pokemon (.*)', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? show me .*?(\b\w+\b)\s*$', message.content, re.IGNORECASE)
     if match:
         pokemon_name = match.group(1)
         build_string = "https://pokeapi.co/api/v2/pokemon/" + pokemon_name + "/"
         pokemon_request = requests.get(build_string)
         pokemon_response = json.loads(pokemon_request.content)
+        match2 = re.search(r'shiny', message.content, re.IGNORECASE)
         pokemon_pic = pokemon_response["sprites"]["front_default"]
+        if match2:
+            pokemon_pic = pokemon_pic.replace("/pokemon/", "/pokemon/shiny/")
         await message.channel.send(pokemon_pic)
 
 # commenting this bit out for the moment
