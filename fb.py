@@ -93,17 +93,20 @@ async def on_message(message):
         await message.channel.send(return_response)
 
     #match = re.search(r'fern,? show me the pokemon (.*)', message.content, re.IGNORECASE)
-    match = re.search(r'fern,? show me .*?(\b\w+\b)\s*$', message.content, re.IGNORECASE)
+    match = re.search(r'fern,? show me .*?(\b[\w-]+\b)\s*$', message.content, re.IGNORECASE)
     if match:
         pokemon_name = match.group(1)
         build_string = "https://pokeapi.co/api/v2/pokemon/" + pokemon_name + "/"
         pokemon_request = requests.get(build_string)
-        pokemon_response = json.loads(pokemon_request.content)
-        match2 = re.search(r'shiny', message.content, re.IGNORECASE)
-        pokemon_pic = pokemon_response["sprites"]["front_default"]
-        if match2:
-            pokemon_pic = pokemon_pic.replace("/pokemon/", "/pokemon/shiny/")
-        await message.channel.send(pokemon_pic)
+        if pokemon_request.status_code == 404:
+            await message.channel.send("The hell kind of pokemon is that? What are you even talking about?")
+        else:
+            pokemon_response = json.loads(pokemon_request.content)
+            match2 = re.search(r'shiny', message.content, re.IGNORECASE)
+            pokemon_pic = pokemon_response["sprites"]["front_default"]
+            if match2:
+                pokemon_pic = pokemon_pic.replace("/pokemon/", "/pokemon/shiny/")
+            await message.channel.send(pokemon_pic)
 
 # commenting this bit out for the moment
 #
