@@ -94,7 +94,7 @@ async def on_message(message):
 
     match = re.search(r'(^| )trash($| )', message.content, re.IGNORECASE)
     if match:
-        await message.channel.send("GOMIBAKA!")
+        await message.channel.send("Gomibaka!")
 
     #match = re.search(r'fern,? show me the pokemon (.*)', message.content, re.IGNORECASE)
     match = re.search(r'fern,? show me .*?(\b[\w-]+\b)\s*$', message.content, re.IGNORECASE)
