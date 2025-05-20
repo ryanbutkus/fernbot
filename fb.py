@@ -92,6 +92,10 @@ async def on_message(message):
             "(" + str(int(wind_speed_mph)) + "MPH). Humidity is " + str(int(humidity)) + "%. Visibility is " + str(int(visibility)) + " meters."
         await message.channel.send(return_response)
 
+    match = re.search(r'(^| )trash($| )', message.content, re.IGNORECASE)
+    if match:
+        await message.channel.send("GOMIBAKA!")
+
     #match = re.search(r'fern,? show me the pokemon (.*)', message.content, re.IGNORECASE)
     match = re.search(r'fern,? show me .*?(\b[\w-]+\b)\s*$', message.content, re.IGNORECASE)
     if match:
