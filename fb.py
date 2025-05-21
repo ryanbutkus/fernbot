@@ -107,9 +107,16 @@ async def on_message(message):
         else:
             pokemon_response = json.loads(pokemon_request.content)
             match2 = re.search(r'shiny', message.content, re.IGNORECASE)
-            pokemon_pic = pokemon_response["sprites"]["front_default"]
+            match3 = re.search(r'back', message.content, re.IGNORECASE)
+            if match3:
+                pokemon_pic = pokemon_response["sprites"]["back_default"]
+            else: 
+                pokemon_pic = pokemon_response["sprites"]["front_default"]
             if match2:
-                pokemon_pic = pokemon_pic.replace("/pokemon/", "/pokemon/shiny/")
+                if match3:
+                    pokemon_pic = pokemon_pic.replace("/pokemon/back/", "/pokemon/back/shiny/")
+                else:
+                    pokemon_pic = pokemon_pic.replace("/pokemon/", "/pokemon/shiny/")
             await message.channel.send(pokemon_pic)
 
 # commenting this bit out for the moment
