@@ -103,7 +103,7 @@ async def on_message(message):
         pic_string = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/"
         pokemon_request = requests.get(build_string)
         if pokemon_request.status_code == 404:
-            print("The hell kind of pokemon is that? What are you even talking about?")
+            await message.channel.send("The hell kind of pokemon is that? What are you even talking about?")
         else:
             pokemon_response = json.loads(pokemon_request.content)
             back_match = re.search(r'back', message.content, re.IGNORECASE)
