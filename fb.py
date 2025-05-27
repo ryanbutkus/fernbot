@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+import asyncio
 import os
 import requests
 import discord
@@ -11,6 +12,11 @@ from datetime import datetime
 
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
+
+stream_ended_msg = "Jenn has finished another successful stream. Yay!"
+stream_started_msg = "Jenn's stream has begun! You can watch it here: https://www.twitch.tv/princess_jem4"
+streamer = "princess_jem4"
+stream_started_variable = 0
 
 TOKEN = fern_keys.TOKEN
 stock_token = fern_keys.stock_token
@@ -50,9 +56,30 @@ for joke in sharks:
 
 client=discord.Client()
 
+async def check_stream(channel):
+    global stream_started_variable
+    if os.path.isfile("/home/ubuntu/repos/fernbot/" + streamer):
+        if not stream_started_variable:
+              stream_started_variable = 1
+              await channel.send(stream_started_msg)
+    else:
+        if stream_started_variable:
+              stream_started_variable = 0
+              await channel.send(stream_ended_msg)
+
+async def background_task():
+    # testing channel id: 1372311450881888407
+    # stream-info channel id: 1372310700826824866
+    await client.wait_until_ready()  # Wait until bot is fully ready
+    channel = client.get_channel(1372310700826824866)  # Replace with actual channel ID
+    while not client.is_closed():
+        await check_stream(channel)
+        await asyncio.sleep(60)  # Wait 60 seconds
+
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to discord')
+    client.loop.create_task(background_task())
 
 @client.event
 async def on_message(message):
