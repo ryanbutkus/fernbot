@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import fern_keys
 import requests
+import os
 
 client_id = fern_keys.twitch_client_id
 client_secret = fern_keys.twitch_client_secret
@@ -33,6 +34,9 @@ response = requests.get(url, headers=get_status_headers)
 data = response.json()
 
 if data['data']:
-    print(f"{streamer} is live!")
+    if not os.path.isfile("/home/ubuntu/repos/fernbot/" + streamer):
+        with open("/home/ubuntu/repos/fernbot/" + streamer, 'w') as file:
+           file.write("/home/ubuntu/repos/fernbot/" + streamer)
 else:
-    print(f"{streamer} is offline.")
+    if os.path.isfile("/home/ubuntu/repos/fernbot/" + streamer):
+        os.remove("/home/ubuntu/repos/fernbot/" + streamer)
