@@ -188,5 +188,33 @@ async def on_message(message):
     except:
         await message.channel.send("I'm getting sick of you.")
 
+
+    match = re.search(r'fern,? i need to see \b(a|an)\b (.*)', message.content, re.IGNORECASE)
+    if match:
+        baseURL = 'https://dog.ceo/api'
+        endpoint = ''
+        dog = match.group(2).split(' ')
+        # Define endpoint
+        if (len(dog) > 1):
+            sub_breed = f'{dog[1]}/{dog[0]}'
+            endpoint = f'/breed/{sub_breed}/images/random'
+        elif (dog[0] == 'dog'):
+            endpoint = '/breeds/image/random'
+        else:
+            breed = dog[0]
+            endpoint = f'/breed/{breed}/images/random'
+        # Make the request
+        try:
+            dog_request = requests.get(baseURL + endpoint)
+            if (dog_request.status_code == 200):
+                r = dog_request.content.decode('utf-8')
+                dog_response = json.loads(r)
+                await message.channel.send(dog_response['message'])
+            else:
+                await message.channel.send("That ain't no dog I know...")
+        except:
+            await message.channel.send("I don't even know what to tell you...")
+
+
 client.run(TOKEN)
 
