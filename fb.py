@@ -13,7 +13,7 @@ from datetime import datetime
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
 
-stream_ended_msg = "Jenn has finished another successful stream. Yay!"
+stream_ended_msg = "Jenn's stream has ended and it was a flippin' amazing time."
 stream_started_msg = "Jenn's stream has begun! You can watch it here: https://www.twitch.tv/princess_jem4"
 streamer = "princess_jem4"
 stream_started_variable = 0
@@ -64,8 +64,10 @@ async def check_stream(channel):
               await channel.send(stream_started_msg)
     else:
         if stream_started_variable:
-              stream_started_variable = 0
-              await channel.send(stream_ended_msg)
+              await asyncio.sleep(600)
+              if not os.path.isfile("/home/ubuntu/repos/fernbot/" + streamer):
+                    stream_started_variable = 0
+                    await channel.send(stream_ended_msg)
 
 async def background_task():
     # testing channel id: 1372311450881888407
