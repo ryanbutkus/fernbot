@@ -128,6 +128,9 @@ async def on_message(message):
     match = re.search(r'fern,? show me .*?(\b[\w-]+\b)\s*$', message.content, re.IGNORECASE)
     if match:
         pokemon_name = match.group(1)
+        if pokemon_name == "feralligatr":
+            pokemon_name = "feraligatr"
+            await message.channel.send("Oh, do you mean Feraligatr? Sure ...")
         build_string = "https://pokeapi.co/api/v2/pokemon/" + pokemon_name + "/"
         pic_string = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/"
         pokemon_request = requests.get(build_string)
