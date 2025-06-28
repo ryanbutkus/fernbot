@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import asyncio
+import sys
 import os
 import requests
 import discord
@@ -177,6 +178,13 @@ async def on_message(message):
         response = r.content.decode("utf-8")
         await message.channel.send(response)
 
+    match = re.search(r'^fern,? go to sleep', message.content, re.IGNORECASE)
+    if match:
+        if message.author.guild_permissions.administrator:
+            await message.channel.send("Sleep sounds good. Good night.")
+            sys.exit()
+        else:
+            await message.channel.send("You're not the boss of me!")
 
     match = re.search(r'fern,? tell me about the number (.*)', message.content, re.IGNORECASE)
     try:
