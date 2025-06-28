@@ -7,6 +7,6 @@ To do:
 - Add new features (C to F/F to C conversion would be nice, maybe some others)
 - Fix stock quotes
 - Allow weather to take Canadian postal codes and continue to allow American
-- Add killswitch
+- DONE: Add killswitch
 
   
