@@ -14,7 +14,21 @@ from datetime import datetime
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
 
-stream_ended_msg = "Jenn's stream has ended and it was a flippin' amazing time."
+end_phrases = [
+    "It was an absolutely fantastic time.",
+    "We had a blast.",
+    "It couldn’t have gone better.",
+    "Such a memorable experience.",
+    "It was a total success.",
+    "Truly an incredible time.",
+    "It was an absolute pleasure.",
+    "We had an awesome time.",
+    "One for the books!",
+    "It was a flippin' amazing time.",
+    "I enjoyed every minute of it."
+]
+
+stream_ended_msg = "Jenn's stream has ended. " #  and it was a flippin' amazing time."
 stream_started_msg = "Jenn's stream has begun! You can watch it here: https://www.twitch.tv/princess_jem4"
 streamer = "princess_jem4"
 stream_started_variable = 0
@@ -68,7 +82,8 @@ async def check_stream(channel):
               await asyncio.sleep(600)
               if not os.path.isfile("/home/ubuntu/repos/fernbot/" + streamer):
                     stream_started_variable = 0
-                    await channel.send(stream_ended_msg)
+                    random_phrase = random.choice(end_phrases)
+                    await channel.send(stream_ended_msg + random_phrase)
 
 async def background_task():
     # testing channel id: 1372311450881888407
