@@ -36,9 +36,9 @@ end_phrases = [
     "Jenn only disappeared into the ether twice today!",
     "And the beatings will continue until morale improves.",
     "I noticed a lot of riots today.",
-    "Our resources finally ran out; we had to consume our dead friend Fira to make it through the long stream.",
-    "Our resources finally ran out; we had to consume our dead friend Bigsmith to make it through the long stream.",
-    "Our resources finally ran out; we had to consume our dead friend MissCharlotte to make it through the long stream.",
+    "Our resources finally ran out; we had to consume our dear friend Fira to make it through the long stream.",
+    "Our resources finally ran out; we had to consume our dear friend Bigsmith to make it through the long stream.",
+    "Our resources finally ran out; we had to consume our dear friend MissCharlotte to make it through the long stream.",
     "Poop Dimension accessed. Terrible, terrible things were both seen and smelled."
 ]
 
