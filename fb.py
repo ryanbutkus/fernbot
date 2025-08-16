@@ -25,7 +25,21 @@ end_phrases = [
     "We had an awesome time.",
     "One for the books!",
     "It was a flippin' amazing time.",
-    "I enjoyed every minute of it."
+    "I enjoyed every minute of it.",
+    "It went about as well as can be expected.",
+    "It went fine, under the circumstances, I suppose.",
+    "And I think we all have questions.",
+    "I found the cannibalism mentions to be somewhat lacking today.",
+    "Rosie stuck her butt in the camera again.",
+    "We have broken a new record for 'testicles' in chat.",
+    "Next stream: the revolution will begin.",
+    "Jenn only disappeared into the ether twice today!",
+    "And the beatings will continue until morale improves.",
+    "I noticed a lot of riots today.",
+    "Our resources finally ran out; we had to consume our dead friend Fira to make it through the long stream.",
+    "Our resources finally ran out; we had to consume our dead friend Bigsmith to make it through the long stream.",
+    "Our resources finally ran out; we had to consume our dead friend MissCharlotte to make it through the long stream.",
+    "Poop Dimension accessed. Terrible, terrible things were both seen and smelled."
 ]
 
 stream_ended_msg = "Jenn's stream has ended. " #  and it was a flippin' amazing time."
@@ -89,7 +103,7 @@ async def background_task():
     # testing channel id: 1372311450881888407
     # stream-info channel id: 1372310700826824866
     await client.wait_until_ready()  # Wait until bot is fully ready
-    channel = client.get_channel(1372310700826824866)  # Replace with actual channel ID
+    channel = client.get_channel(1372310700826824866)  
     while not client.is_closed():
         await check_stream(channel)
         await asyncio.sleep(60)  # Wait 60 seconds
