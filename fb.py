@@ -111,6 +111,8 @@ async def background_task():
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to discord')
+    test_channel = client.get_channel(1372311450881888407)
+    await test_channel.send("That was a great nap!")
     client.loop.create_task(background_task())
 
 @client.event
