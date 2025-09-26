@@ -187,6 +187,16 @@ async def on_message(message):
         days_remaining = delta.days
         await message.channel.send("There are " + str(days_remaining) + " days until Halloween. Spooky!")
 
+    match = re.search(r'\bhappy\s*birthday\b', message.content, re.IGNORECASE)
+    if match:
+        emojis = [
+                ":tada:", ":balloon:", ":cake:", ":champagne_glass:",
+        ":birthday:", ":partying_face:", ":mirror_ball:", ":cupcake:", ":gift:"
+        ]
+        random.shuffle(emojis)
+        count = random.randint(4, 9)  
+        await message.channel.send(" ".join(emojis[:count]))
+
     match = re.search(r'fern,? tell me a (.*) joke', message.content, re.IGNORECASE)
     if match:
         jokeword = match.group(1)
