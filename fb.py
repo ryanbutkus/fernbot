@@ -9,7 +9,7 @@ import random
 import json
 import fern_keys
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime,date
 
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
@@ -181,8 +181,8 @@ async def on_message(message):
 
     match = re.search(r'fern,? how many days until halloween', message.content, re.IGNORECASE)
     if match:
-        target_date = datetime(2025, 10, 31)  
-        today = datetime.today()
+        target_date = date(2025, 10, 31)
+        today = date.today()
         delta = target_date - today
         days_remaining = delta.days
         await message.channel.send("There are " + str(days_remaining) + " days until Halloween. Spooky!")
