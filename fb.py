@@ -181,7 +181,7 @@ async def on_message(message):
 
     match = re.search(r'fern,? how many days until halloween', message.content, re.IGNORECASE)
     if match:
-        target_date = date(2025, 10, 31)
+        target_date = date(2026, 10, 31)
         today = date.today()
         delta = target_date - today
         days_remaining = delta.days
