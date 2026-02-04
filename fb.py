@@ -14,6 +14,15 @@ from datetime import datetime,date
 sharkjokesfile = "sharkjokes.txt"
 sharkjokeslist = []
 
+start_phrases = [
+    "Apparently someone wanted more of this, because ",
+    "Rent is not going to pay for itself. ",
+    "Are you ready? (You're not, just FYI.) ",
+    "... oh boy. ",
+    "Hope you're not doing anything important. "
+    "Rosie just sat on Jenn's keyboard, so "
+]
+
 end_phrases = [
     "It was an absolutely fantastic time.",
     "We had a blast.",
@@ -90,7 +99,8 @@ async def check_stream(channel):
     if os.path.isfile("/home/ubuntu/repos/fernbot/" + streamer):
         if not stream_started_variable:
               stream_started_variable = 1
-              await channel.send(stream_started_msg)
+              random_phrase = random.choice(start_phrases)
+              await channel.send(random_phrase + stream_started_msg)
     else:
         if stream_started_variable:
               await asyncio.sleep(600)
