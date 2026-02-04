@@ -223,7 +223,7 @@ async def on_message(message):
     if match:
         if message.author.guild_permissions.administrator:
             await message.channel.send("Sleep sounds good. Good night.")
-            sys.exit()
+            await client.close()
         else:
             await message.channel.send("You're not the boss of me!")
 
@@ -271,4 +271,4 @@ async def on_message(message):
 
 
 client.run(TOKEN)
-
+sys.exit(0)
