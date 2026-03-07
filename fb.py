@@ -26,6 +26,7 @@ start_phrases = [
 end_phrases = [
     "It was an absolutely fantastic time.",
     "We had a blast.",
+    "Well, that sucked.",
     "It couldn’t have gone better.",
     "Such a memorable experience.",
     "It was a total success.",
