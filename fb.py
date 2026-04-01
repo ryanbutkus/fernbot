@@ -19,7 +19,7 @@ start_phrases = [
     "Rent is not going to pay for itself. ",
     "Are you ready? (You're not, just FYI.) ",
     "... oh boy. ",
-    "Hope you're not doing anything important. "
+    "Hope you're not doing anything important. ",
     "Rosie just sat on Jenn's keyboard, so "
 ]
 
