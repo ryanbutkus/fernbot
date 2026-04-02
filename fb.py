@@ -56,6 +56,7 @@ stream_ended_msg = "Jenn's stream has ended. " #  and it was a flippin' amazing 
 stream_started_msg = "Jenn's stream has begun! You can watch it here: https://www.twitch.tv/princess_jem4"
 streamer = "princess_jem4"
 stream_started_variable = 0
+background_task_handle = None
 
 TOKEN = fern_keys.TOKEN
 stock_token = fern_keys.stock_token
@@ -121,10 +122,12 @@ async def background_task():
 
 @client.event
 async def on_ready():
+    global background_task_handle
     print(f'{client.user} has connected to discord')
     test_channel = client.get_channel(1372311450881888407)
     await test_channel.send("That was a great nap!")
-    client.loop.create_task(background_task())
+    if background_task_handle is None or background_task_handle.done():
+        background_task_handle = client.loop.create_task(background_task())
 
 @client.event
 async def on_message(message):
