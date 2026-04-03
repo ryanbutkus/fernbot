@@ -136,12 +136,16 @@ async def on_message(message):
 
     match = re.search(r'fern,? weather (.*)', message.content, re.IGNORECASE)
     if match:
-        zipcode = match.group(1)
-        match = re.search(r'\d\d\d\d\d', message.content)
-        if match:
-            build_string = "http://api.openweathermap.org/data/2.5/weather?zip=" + zipcode + ",us&appid=" + weather_token
+        location = match.group(1).strip()
+        us_zip_match = re.fullmatch(r'\d{5}(?:-\d{4})?', location)
+        ca_postal_match = re.fullmatch(r'[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d', location)
+        if us_zip_match:
+            build_string = "http://api.openweathermap.org/data/2.5/weather?zip=" + location + ",us&appid=" + weather_token
+        elif ca_postal_match:
+            postal_code = re.sub(r'\s+', '', location).upper()
+            build_string = "http://api.openweathermap.org/data/2.5/weather?zip=" + postal_code + ",ca&appid=" + weather_token
         else:
-            build_string = "http://api.openweathermap.org/data/2.5/weather?q=" + zipcode + "&appid=" + weather_token
+            build_string = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + weather_token
         dirs = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
         weather_request = requests.get(build_string)
         weather_response = json.loads(weather_request.content)
