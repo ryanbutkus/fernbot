@@ -139,6 +139,8 @@ async def on_message(message):
         location = match.group(1).strip()
         us_zip_match = re.fullmatch(r'\d{5}(?:-\d{4})?', location)
         ca_postal_match = re.fullmatch(r'[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d', location)
+        await message.channel.send("weather debug location=" + repr(location))
+        await message.channel.send("weather debug us_zip_match=" + str(bool(us_zip_match)) + " ca_postal_match=" + str(bool(ca_postal_match)))
         if us_zip_match:
             build_string = "http://api.openweathermap.org/data/2.5/weather?zip=" + location + ",us&appid=" + weather_token
         elif ca_postal_match:
@@ -146,6 +148,7 @@ async def on_message(message):
             build_string = "http://api.openweathermap.org/data/2.5/weather?zip=" + postal_code + ",ca&appid=" + weather_token
         else:
             build_string = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&appid=" + weather_token
+        await message.channel.send("weather debug build_string=" + build_string)
         dirs = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW']
         weather_request = requests.get(build_string)
         weather_response = json.loads(weather_request.content)
